@@ -1,0 +1,9 @@
+front-end
+- budowa struktury sklepu - front
+	strona główna, podstrony z kategoriami, podstrony z produktami, koszyk
+back-end
+- budowa struktury bazy
+- dodawanie produktów do bazy
+- kasowane produktów z bazy
+- obsługa kupowania
+	koszyk itp
