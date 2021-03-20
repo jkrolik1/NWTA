@@ -1,10 +1,48 @@
-<div class="header">
-  tu się machnie jakieś logo czy coś
+<input type="checkbox" id="check">
 
-  <a routerLink="/order" routerLinkActive="active" class="buttonRouter">Koszyk</a>
-  <a routerLink="/login" routerLinkActive="active" class="buttonRouter">Zaloguj</a>
-  <a routerLink="/info" routerLinkActive="active" class="buttonRouter">O sklepie</a>
-  <a routerLink="/shop" routerLinkActive="active" class="buttonRouter">Sklep</a>
+<header>
 
+  <label for="check">
+    <i class="fas fa-bars" id="sidebar_btn"></i>
+  </label>
+
+  <div class="left_area">
+    <h3>Sklep <span>Zoologiczny</span></h3>
+  </div>
+
+  <div class="right_area">
+    <a routerLink="/login" routerLinkActive="active" class="buttonRouter">Zaloguj</a>
+    <a routerLink="/order" routerLinkActive="active" class="buttonRouter">Koszyk</a>
+    <a routerLink="/info" routerLinkActive="active" class="buttonRouter">O sklepie</a>
+    <a routerLink="/shop" routerLinkActive="active" class="buttonRouter">Strona główna</a>
+    <div style="clear: both;"></div>
+  </div>
+
+  <div style="clear: both;"></div>
+</header>
+
+
+<div class="sidebar">
+
+  <div class="login_feature">
+    <img src="" alt="zdjecie_profilowe" class="profile_image">
+    <h4>Nazwa użytk</h4>
+  </div>
+
+  <a *ngFor="let category of categories" class="category" routerLinkActive="class1"
+    [routerLink]="['/shop/category', category.id]">
+
+    <i class="fas fa-dog"></i>
+
+    <span>
+      {{category.name}} {{category.id}}
+    </span>
+  
+  </a>
+ 
 </div>
-<router-outlet></router-outlet>
+
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
