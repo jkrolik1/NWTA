@@ -7,11 +7,11 @@ header{
             cursor: pointer;
             left: 300px;
             font-size: 20px;
-            margin: 4px 0;
+            margin: 4px 20px;
             transition: 0.5s;
         }
         #sidebar_btn:hover{
-            color: #19B3D3
+            color: #f25287;
         }
     }
     position: fixed;
@@ -28,17 +28,23 @@ header{
             font-size: 22px;
             font-weight: 900;
         }
+        a{
+            
+            text-decoration: none;
+        }
         span{
-            color: #1dc4e7;
+            color: #f25287;
         }
     }
 
     .right_area{
+        display: block;
         height: inherit;
         float: right;
+        padding-right: 10px;
         .buttonRouter{
             padding: 5px 10px 5px 10px;
-            background: #19b3d3;
+            background: #f25287;
             text-decoration: none;
             float: right;
             margin-right: 25px;
@@ -49,7 +55,7 @@ header{
             transition: 0.5s;
         }
         .buttonRouter:hover{
-            background: #0D9DBB;
+            background: #ffaec0;
         }
     }
 
@@ -64,6 +70,9 @@ header{
     width: 250px;
     height: 100%;
     transition: 0.5s;
+    .buttonRouter{
+        display: none;
+    }
     .login_feature{
         text-align: center;
         .profile_image{
@@ -92,12 +101,17 @@ header{
         }
     }
     a:hover{
-        background: #19b3d3;
+        background: #ffaec0;
     }
 }
 
 #check:checked ~ .sidebar{
     left: -190px;
+    padding-top: 5px;
+}
+
+#check:checked ~ .sidebar .login_feature{
+    display: none;
 }
 
 #check:checked ~ .sidebar a span{
@@ -112,8 +126,8 @@ header{
 
 .content{
     margin-left: 250px;
-    background-image: url("images/background1.jpg");
-    
+    background-image: url("../app/images/background1.png");
+    background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
     height: 100vh;
@@ -128,3 +142,62 @@ header{
 #check{
     display: none;
 }
+
+@media only screen and (max-width: 815px) {
+    header{
+        .right_area{
+            .buttonRouter{
+                padding: 5px 10px 5px 10px;
+                margin-right: 15px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 815px) {
+    header{
+        .right_area{
+            .buttonRouter{
+                padding: 5px 8px 5px 8px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    header{
+        .right_area{
+            .buttonRouter{
+                padding: 5px;
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 680px) {
+    .sidebar{
+        .buttonRouter{
+            display: block;
+            color: #f25287;
+        }
+        .buttonRouter:hover{
+            color: #2F323A;
+        }
+    }
+    header{
+        .right_area{
+            display: none;
+        }
+    }
+    .sidebar{
+        a{
+            padding-top: -10px;
+        }
+        a:hover{
+            color: #2F323A;
+        }
+    }
+}
+
