@@ -14,19 +14,24 @@
     float: left;
     width: 100%;
     height:max-content;
-
+    background-color:rgb(47, 50, 58,0.6);
 }
 .item{
     display: inline-block;
     width: 23%;
     height: 31vh;
     margin: 1%;
-    background-color:gray;
+    background-color:rgb(255,174,192,0.7);
     text-align: center;
+    
 }
 .choosenCategory{
     height: 5vh;
-    background-color:rgb(190, 135, 135);
+    background-color:rgb(47, 50, 58,0.7);
+    text-align: center;
+    padding-top: 10px;
+    color: #f25287;
+    font-weight: 600;
 }
 .category{
     margin: 3%;
