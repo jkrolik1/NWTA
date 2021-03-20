@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Mar 2021, 20:07
+-- Czas generowania: 20 Mar 2021, 22:52
 -- Wersja serwera: 10.4.18-MariaDB
 -- Wersja PHP: 8.0.3
 
@@ -34,6 +34,46 @@ CREATE TABLE `dzial` (
   `ZoologicznyPunktSprzedazyIdPunktuSprzedazy` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `dzial`
+--
+
+INSERT INTO `dzial` (`NumerDzialu`, `Nazwa`, `Opis`, `ZoologicznyPunktSprzedazyIdPunktuSprzedazy`) VALUES
+(11, 'as', 'ass', 10),
+(15, 'testowyDzial', 'testowyDzial', 10),
+(16, 'testowyDzial', 'jakis opis', 10);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `hibernate_sequence`
+--
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `hibernate_sequence`
+--
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(22);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `kartaproduktow`
+--
+
+CREATE TABLE `kartaproduktow` (
+  `NumerKarty` int(11) NOT NULL,
+  `KoszykNumerKoszyka` int(11) NOT NULL,
+  `ProduktIdProduktu` int(11) NOT NULL,
+  `DataDodania` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `IloscElementow` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -48,10 +88,17 @@ CREATE TABLE `klient` (
   `NumerDomu` int(10) NOT NULL,
   `Miasto` varchar(200) COLLATE utf8_polish_ci DEFAULT NULL,
   `InneDane` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
-  `Opis` int(255) NOT NULL,
+  `Opis` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `IdPunktuSprzedazy` int(11) NOT NULL,
   `KontoLoginKonta` varchar(30) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `klient`
+--
+
+INSERT INTO `klient` (`NrKlienta`, `Imie`, `Nazwisko`, `Ulica`, `NumerDomu`, `Miasto`, `InneDane`, `Opis`, `IdPunktuSprzedazy`, `KontoLoginKonta`) VALUES
+(21, 'Marcel', 'Niedziela', 'ulica', 2137, 'miasto', 'inneDane', 'opis', 10, 'nick');
 
 -- --------------------------------------------------------
 
@@ -65,6 +112,24 @@ CREATE TABLE `konto` (
   `Email` varchar(50) COLLATE utf8_polish_ci NOT NULL,
   `Awatar` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
   `DataDolaczenia` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `konto`
+--
+
+INSERT INTO `konto` (`Login`, `Haslo`, `Email`, `Awatar`, `DataDolaczenia`) VALUES
+('nick', 'toja', 'aaa@aaa.com', 'aaa', '2021-03-19 18:06:39');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `koszyk`
+--
+
+CREATE TABLE `koszyk` (
+  `NumerKoszyka` int(11) NOT NULL,
+  `KontoLoginKonta` varchar(100) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
@@ -81,6 +146,13 @@ CREATE TABLE `produkt` (
   `DzialNumerDzialu` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `produkt`
+--
+
+INSERT INTO `produkt` (`IdProduktu`, `ZdjeciePogladowe`, `Opis`, `Cena`, `DzialNumerDzialu`) VALUES
+(2, 'zdjeciePogladowe', 'opis', 10, 16);
+
 -- --------------------------------------------------------
 
 --
@@ -94,6 +166,13 @@ CREATE TABLE `transakcja` (
   `ProduktIdProduktu` int(11) NOT NULL,
   `KlientIdKlienta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `transakcja`
+--
+
+INSERT INTO `transakcja` (`KodTransakcji`, `SumaTransakcji`, `IloscProduktow`, `ProduktIdProduktu`, `KlientIdKlienta`) VALUES
+(2, 16, 123, 2, 21);
 
 -- --------------------------------------------------------
 
@@ -111,6 +190,14 @@ CREATE TABLE `zoologicznypunktsprzedazy` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
+-- Zrzut danych tabeli `zoologicznypunktsprzedazy`
+--
+
+INSERT INTO `zoologicznypunktsprzedazy` (`IdPunktuSprzedazy`, `DataPowstania`, `DataOstatniejEdycjiWitryny`, `TechnologieWykonaniaWitryny`, `Autorzy`, `Opis`) VALUES
+(10, NULL, NULL, NULL, 'asd', 'ass'),
+(18, '2020-03-19 20:37:00', '2020-03-19 20:37:00', 'technologie jakies ', 'to my', 'jakis opis');
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -119,7 +206,15 @@ CREATE TABLE `zoologicznypunktsprzedazy` (
 --
 ALTER TABLE `dzial`
   ADD PRIMARY KEY (`NumerDzialu`),
-  ADD UNIQUE KEY `ZoologicznyPunktSprzedazyIdPunktuSprzedazy` (`ZoologicznyPunktSprzedazyIdPunktuSprzedazy`);
+  ADD KEY `ZoologicznyPunktSprzedazyIdPunktuSprzedazy` (`ZoologicznyPunktSprzedazyIdPunktuSprzedazy`) USING BTREE;
+
+--
+-- Indeksy dla tabeli `kartaproduktow`
+--
+ALTER TABLE `kartaproduktow`
+  ADD PRIMARY KEY (`NumerKarty`),
+  ADD KEY `FK_KPK` (`KoszykNumerKoszyka`),
+  ADD KEY `FK_KPP` (`ProduktIdProduktu`);
 
 --
 -- Indeksy dla tabeli `klient`
@@ -134,6 +229,13 @@ ALTER TABLE `klient`
 --
 ALTER TABLE `konto`
   ADD PRIMARY KEY (`Login`);
+
+--
+-- Indeksy dla tabeli `koszyk`
+--
+ALTER TABLE `koszyk`
+  ADD PRIMARY KEY (`NumerKoszyka`),
+  ADD KEY `FK_KK` (`KontoLoginKonta`);
 
 --
 -- Indeksy dla tabeli `produkt`
@@ -164,31 +266,43 @@ ALTER TABLE `zoologicznypunktsprzedazy`
 -- AUTO_INCREMENT dla tabeli `dzial`
 --
 ALTER TABLE `dzial`
-  MODIFY `NumerDzialu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `NumerDzialu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT dla tabeli `kartaproduktow`
+--
+ALTER TABLE `kartaproduktow`
+  MODIFY `NumerKarty` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `NrKlienta` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `NrKlienta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT dla tabeli `koszyk`
+--
+ALTER TABLE `koszyk`
+  MODIFY `NumerKoszyka` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkt`
 --
 ALTER TABLE `produkt`
-  MODIFY `IdProduktu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdProduktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `transakcja`
 --
 ALTER TABLE `transakcja`
-  MODIFY `KodTransakcji` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `KodTransakcji` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `zoologicznypunktsprzedazy`
 --
 ALTER TABLE `zoologicznypunktsprzedazy`
-  MODIFY `IdPunktuSprzedazy` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdPunktuSprzedazy` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Ograniczenia dla zrzutów tabel
@@ -201,11 +315,24 @@ ALTER TABLE `dzial`
   ADD CONSTRAINT `dzial_ibfk_1` FOREIGN KEY (`ZoologicznyPunktSprzedazyIdPunktuSprzedazy`) REFERENCES `zoologicznypunktsprzedazy` (`IdPunktuSprzedazy`);
 
 --
+-- Ograniczenia dla tabeli `kartaproduktow`
+--
+ALTER TABLE `kartaproduktow`
+  ADD CONSTRAINT `FK_KPK` FOREIGN KEY (`KoszykNumerKoszyka`) REFERENCES `koszyk` (`NumerKoszyka`),
+  ADD CONSTRAINT `FK_KPP` FOREIGN KEY (`ProduktIdProduktu`) REFERENCES `produkt` (`IdProduktu`);
+
+--
 -- Ograniczenia dla tabeli `klient`
 --
 ALTER TABLE `klient`
   ADD CONSTRAINT `NrKPO` FOREIGN KEY (`IdPunktuSprzedazy`) REFERENCES `zoologicznypunktsprzedazy` (`IdPunktuSprzedazy`),
   ADD CONSTRAINT `NrRP` FOREIGN KEY (`KontoLoginKonta`) REFERENCES `konto` (`Login`);
+
+--
+-- Ograniczenia dla tabeli `koszyk`
+--
+ALTER TABLE `koszyk`
+  ADD CONSTRAINT `FK_KK` FOREIGN KEY (`KontoLoginKonta`) REFERENCES `konto` (`Login`);
 
 --
 -- Ograniczenia dla tabeli `produkt`
