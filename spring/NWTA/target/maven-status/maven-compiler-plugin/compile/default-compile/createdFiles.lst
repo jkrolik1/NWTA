@@ -1,0 +1,14 @@
+com\JAMgroup\NWTA\ZoologicznyPunktSprzedazyRepository.class
+com\JAMgroup\NWTA\MainController.class
+com\JAMgroup\NWTA\Transakcja.class
+com\JAMgroup\NWTA\Produkt.class
+com\JAMgroup\NWTA\Konto.class
+com\JAMgroup\NWTA\ProduktRepository.class
+com\JAMgroup\NWTA\ZoologicznyPunktSprzedazy.class
+com\JAMgroup\NWTA\Klient.class
+com\JAMgroup\NWTA\NwtaApplication.class
+com\JAMgroup\NWTA\TransakcjaRepository.class
+com\JAMgroup\NWTA\Dzial.class
+com\JAMgroup\NWTA\DzialRepository.class
+com\JAMgroup\NWTA\KlientRepository.class
+com\JAMgroup\NWTA\KontoRepository.class
