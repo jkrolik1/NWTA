@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Mar 2021, 22:52
+-- Czas generowania: 22 Mar 2021, 16:17
 -- Wersja serwera: 10.4.18-MariaDB
--- Wersja PHP: 8.0.3
+-- Wersja PHP: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -74,6 +74,13 @@ CREATE TABLE `kartaproduktow` (
   `IloscElementow` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `kartaproduktow`
+--
+
+INSERT INTO `kartaproduktow` (`NumerKarty`, `KoszykNumerKoszyka`, `ProduktIdProduktu`, `DataDodania`, `IloscElementow`) VALUES
+(2, 2, 2, '2021-03-21 13:03:39', 2137);
+
 -- --------------------------------------------------------
 
 --
@@ -132,6 +139,13 @@ CREATE TABLE `koszyk` (
   `KontoLoginKonta` varchar(100) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `koszyk`
+--
+
+INSERT INTO `koszyk` (`NumerKoszyka`, `KontoLoginKonta`) VALUES
+(2, 'nick');
+
 -- --------------------------------------------------------
 
 --
@@ -143,15 +157,19 @@ CREATE TABLE `produkt` (
   `ZdjeciePogladowe` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
   `Opis` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
   `Cena` int(10) NOT NULL,
-  `DzialNumerDzialu` int(11) NOT NULL
+  `DzialNumerDzialu` int(11) NOT NULL,
+  `Nazwa` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `produkt`
 --
 
-INSERT INTO `produkt` (`IdProduktu`, `ZdjeciePogladowe`, `Opis`, `Cena`, `DzialNumerDzialu`) VALUES
-(2, 'zdjeciePogladowe', 'opis', 10, 16);
+INSERT INTO `produkt` (`IdProduktu`, `ZdjeciePogladowe`, `Opis`, `Cena`, `DzialNumerDzialu`, `Nazwa`) VALUES
+(2, 'zdjeciePogladowe', 'opis', 10, 16, NULL),
+(3, 'sdad', 'dasdas', 16, 16, 'dadas'),
+(4, 'sdad', 'dasdas', 16, 16, 'dadas'),
+(5, 'sdad', 'dasdas', 15, 15, 'dadas');
 
 -- --------------------------------------------------------
 
@@ -242,7 +260,7 @@ ALTER TABLE `koszyk`
 --
 ALTER TABLE `produkt`
   ADD PRIMARY KEY (`IdProduktu`),
-  ADD UNIQUE KEY `DzialNumerDzialu` (`DzialNumerDzialu`);
+  ADD KEY `DzialNumerDzialu` (`DzialNumerDzialu`) USING BTREE;
 
 --
 -- Indeksy dla tabeli `transakcja`
@@ -272,7 +290,7 @@ ALTER TABLE `dzial`
 -- AUTO_INCREMENT dla tabeli `kartaproduktow`
 --
 ALTER TABLE `kartaproduktow`
-  MODIFY `NumerKarty` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `NumerKarty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `klient`
@@ -284,13 +302,13 @@ ALTER TABLE `klient`
 -- AUTO_INCREMENT dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
-  MODIFY `NumerKoszyka` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `NumerKoszyka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkt`
 --
 ALTER TABLE `produkt`
-  MODIFY `IdProduktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdProduktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `transakcja`
