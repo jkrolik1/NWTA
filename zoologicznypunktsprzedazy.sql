@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Mar 2021, 13:55
+-- Czas generowania: 23 Mar 2021, 16:05
 -- Wersja serwera: 10.4.18-MariaDB
 -- Wersja PHP: 8.0.3
 
@@ -123,7 +123,7 @@ INSERT INTO `klient` (`NrKlienta`, `Imie`, `Nazwisko`, `Ulica`, `NumerDomu`, `Mi
 
 CREATE TABLE `konto` (
   `Login` varchar(20) COLLATE utf8_polish_ci NOT NULL,
-  `Haslo` varchar(30) COLLATE utf8_polish_ci NOT NULL,
+  `Haslo` varchar(32) COLLATE utf8_polish_ci NOT NULL,
   `Email` varchar(50) COLLATE utf8_polish_ci NOT NULL,
   `Awatar` varchar(255) COLLATE utf8_polish_ci DEFAULT NULL,
   `DataDolaczenia` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
