@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 22 Mar 2021, 20:52
+-- Czas generowania: 23 Mar 2021, 13:55
 -- Wersja serwera: 10.4.18-MariaDB
 -- Wersja PHP: 8.0.3
 
@@ -75,6 +75,18 @@ CREATE TABLE `kartaproduktow` (
   `IloscElementow` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `kartaproduktow`
+--
+
+INSERT INTO `kartaproduktow` (`NumerKarty`, `KoszykNumerKoszyka`, `ProduktIdProduktu`, `DataDodania`, `IloscElementow`) VALUES
+(1, 1, 26, '2021-03-23 12:52:52', 4),
+(2, 1, 46, '2021-03-23 12:52:52', 5),
+(5, 3, 10, '2021-03-23 12:54:25', 1),
+(55, 3, 41, '2021-03-23 12:54:25', 2),
+(555, 3, 9, '2021-03-23 12:54:25', 3),
+(5555, 3, 70, '2021-03-23 12:54:25', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -99,7 +111,9 @@ CREATE TABLE `klient` (
 --
 
 INSERT INTO `klient` (`NrKlienta`, `Imie`, `Nazwisko`, `Ulica`, `NumerDomu`, `Miasto`, `InneDane`, `Opis`, `IdPunktuSprzedazy`, `KontoLoginKonta`) VALUES
-(11, 'Jan', 'Kowalski', 'Fiołkowa', 12, 'Poznań', NULL, '', 1, 'janek87111');
+(22, 'admin', 'admin', 'admin', 0, 'admin', 'admin', 'admin', 1, 'admin'),
+(23, 'Jakub', 'Krolik', 'Leśna', 12, 'Warszawa', NULL, '', 1, 'jakubkr6511'),
+(24, 'Jan', 'Kowalski', 'Polna', 10, 'Poznań', NULL, '', 1, 'janek87111');
 
 -- --------------------------------------------------------
 
@@ -134,6 +148,15 @@ CREATE TABLE `koszyk` (
   `NumerKoszyka` int(11) NOT NULL,
   `KontoLoginKonta` varchar(100) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `koszyk`
+--
+
+INSERT INTO `koszyk` (`NumerKoszyka`, `KontoLoginKonta`) VALUES
+(1, 'admin'),
+(2, 'jakubkr6511'),
+(3, 'janek87111');
 
 -- --------------------------------------------------------
 
@@ -199,6 +222,13 @@ CREATE TABLE `transakcja` (
   `KlientIdKlienta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `transakcja`
+--
+
+INSERT INTO `transakcja` (`KodTransakcji`, `SumaTransakcji`, `IloscProduktow`, `ProduktIdProduktu`, `KlientIdKlienta`) VALUES
+(1452, 600, 54, 42, 24);
+
 -- --------------------------------------------------------
 
 --
@@ -245,8 +275,8 @@ ALTER TABLE `kartaproduktow`
 --
 ALTER TABLE `klient`
   ADD PRIMARY KEY (`NrKlienta`),
-  ADD UNIQUE KEY `IdPunktuSprzedazy` (`IdPunktuSprzedazy`),
-  ADD UNIQUE KEY `KontoLoginKonta` (`KontoLoginKonta`);
+  ADD UNIQUE KEY `KontoLoginKonta` (`KontoLoginKonta`),
+  ADD KEY `IdPunktuSprzedazy` (`IdPunktuSprzedazy`);
 
 --
 -- Indeksy dla tabeli `konto`
@@ -290,25 +320,25 @@ ALTER TABLE `zoologicznypunktsprzedazy`
 -- AUTO_INCREMENT dla tabeli `dzial`
 --
 ALTER TABLE `dzial`
-  MODIFY `NumerDzialu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `NumerDzialu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT dla tabeli `kartaproduktow`
 --
 ALTER TABLE `kartaproduktow`
-  MODIFY `NumerKarty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `NumerKarty` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5556;
 
 --
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `NrKlienta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `NrKlienta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
-  MODIFY `NumerKoszyka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `NumerKoszyka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkt`
@@ -320,7 +350,7 @@ ALTER TABLE `produkt`
 -- AUTO_INCREMENT dla tabeli `transakcja`
 --
 ALTER TABLE `transakcja`
-  MODIFY `KodTransakcji` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `KodTransakcji` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1453;
 
 --
 -- AUTO_INCREMENT dla tabeli `zoologicznypunktsprzedazy`
@@ -349,8 +379,8 @@ ALTER TABLE `kartaproduktow`
 -- Ograniczenia dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  ADD CONSTRAINT `NrKPO` FOREIGN KEY (`IdPunktuSprzedazy`) REFERENCES `zoologicznypunktsprzedazy` (`IdPunktuSprzedazy`),
-  ADD CONSTRAINT `NrRP` FOREIGN KEY (`KontoLoginKonta`) REFERENCES `konto` (`Login`);
+  ADD CONSTRAINT `NrRP` FOREIGN KEY (`KontoLoginKonta`) REFERENCES `konto` (`Login`),
+  ADD CONSTRAINT `klient_ibfk_1` FOREIGN KEY (`IdPunktuSprzedazy`) REFERENCES `zoologicznypunktsprzedazy` (`IdPunktuSprzedazy`);
 
 --
 -- Ograniczenia dla tabeli `koszyk`
